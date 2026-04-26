@@ -35,9 +35,14 @@ public class TemplateSearchService(IParameterResolver resolver) : ITemplateSearc
     static int Score(string query, Template template)
     {
         var scores = template.Tags
-            .Select(tag => Fuzz.PartialRatio(query, tag))
-            .Append(Fuzz.PartialRatio(query, template.Content));
+            .Select(tag => ScoreAgainst(query, tag))
+            .Append(ScoreAgainst(query, template.Content));
 
         return scores.Max();
     }
+
+    static int ScoreAgainst(string query, string target) =>
+        query.Length <= target.Length
+            ? Fuzz.PartialRatio(query, target)
+            : Fuzz.Ratio(query, target);
 }
