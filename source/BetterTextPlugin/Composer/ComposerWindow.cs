@@ -41,6 +41,15 @@ public class ComposerWindow : BaseForm
         Margin = new Padding(0);
     }
 
+    protected override void OnShown(EventArgs e)
+    {
+        base.OnShown(e);
+        var centre = new System.Drawing.Point(
+            Left + Width / 2,
+            Top + Height / 2);
+        Cursor.Position = centre;
+    }
+
     void OnCloseRequested()
     {
         if (InvokeRequired)

@@ -20,6 +20,12 @@ public class VatSysForm : BaseForm
     public VatSysForm(string title, Func<UIElement> childFactory, bool shrinkToContent)
     {
         MiddleClickClose = true;
+        FormBorderStyle = FormBorderStyle.None;
+        HasCloseButton = false;
+        HasMinimizeButton = false;
+        HasMaximizeButton = false;
+        HasSendBackButton = false;
+
         Text = title;
 
         var child = childFactory();
