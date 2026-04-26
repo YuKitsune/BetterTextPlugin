@@ -1,3 +1,4 @@
+using System.ComponentModel.Composition;
 using BetterTextPlugin.Composer;
 using BetterTextPlugin.Configuration;
 using MediatR;
@@ -7,6 +8,7 @@ using vatsys.Plugin;
 
 namespace BetterTextPlugin;
 
+[Export(typeof(IPlugin))]
 public class Plugin : ILabelPlugin, IStripPlugin
 {
 #if DEBUG
