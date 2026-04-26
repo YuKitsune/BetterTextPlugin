@@ -1,0 +1,203 @@
+;-------------------------------------------GENERAL-------------------------------------------
+
+.g G'day
+.atis Verify you have information $1.
+.r Roger.
+.uni No further ATC, monitor unicom 122.8.
+.cli climb
+.des descend
+.mtn maintain
+.iva independent visual approach
+
+;------------------------------------------AERODROME------------------------------------------
+
+;Airways clearances. To expand $freq($1) enter the two digit code from the online controller list
+
+.pdc PDC $time $aircraft $type $dep, CLEARED TO $arr VIA RWY $deprwy $sid DEP: xxx ROUTE: $route, CLIMB VIA SID TO: $alt, DEP FREQ: $freq($1), SQUAWK: $asquawk, xxx CTC $UC($RADIONAME) ON $FREQ FOR READBACK OF RWY, DEP & SQ ... xxx PDC END
+
+.clear Cleared to $arr via $1, flight planned route, runway $deprwy, $sid departure, climb via SID to $alt, squawk $squawk, departures frequency $freq($2).
+
+;Pushback / Start
+
+.p Push approved.
+.pf Push approved, tail $1.
+.pt Push approved, traffic is $1.
+.pft Push approved, tail $1, traffic is $2.
+.pd Expect push at time $1.
+.sd Expect start at time $1.
+
+;Taxi
+
+.t Taxi via $1, runway $deprwy.
+.tv Taxi via $1, hold short of $2.
+.tr Taxi to holding point $1, runway $deprwy.
+.tg Give way to $1.
+.tx Cross runway $1.
+.tf Follow $1.
+.th Hold position.
+
+;Take-off
+
+.lu Runway $deprwy line up and wait.
+.lb Behind the $1 runway $deprwy line up and wait behind.
+.cto Runway $deprwy cleared for takeoff.
+.cth Assigned heading $1, runway $deprwy cleared for takeoff.
+.ctow Wind $wind($dep), runway $deprwy cleared for takeoff.
+.cthw Wind $wind($dep), assigned heading $1, runway $deprwy cleared for takeoff.
+.cd Contact departures.
+
+;Landing
+
+.cap Continue approach.
+.elc Expect late landing clearance.
+.ctl Runway $1 cleared to land.
+.ctlw Wind $wind($arr), runway $1 cleared to land.
+.v Vacate $1.
+.ga Go around.
+
+;---------------------------------------------TMA---------------------------------------------
+
+;Squawk
+.s Squawk $squawk.
+.id Squawk ident.
+.sqi Squawk $squawk and ident.
+.sc Squawk mode C.
+.sv Squawk 1200.
+.si Squawk 2000.
+.i Identified.
+.ni Not yet identified.
+
+;Level
+.vl Verify level.
+.ics Identified, climb via SID to $alt.
+.icc Identified, climb via SID to $alt, cancel level and speed restrictions.
+.dq Descend $alt, QNH $altim($arr).
+.dqs Descend via STAR to $alt, QNH $altim($arr).
+.d Descend $alt.
+.ds Descend via STAR to $alt.
+.c Climb $alt.
+.m Maintain $alt.
+.dn Descend non-standard $alt.
+.cn Climb non-standard $alt.
+.mn Maintain non-standard $alt.
+.da Descend amended $alt.
+.ca Climb amended $alt.
+.ma Maintain amended $alt.
+.chr Cancel level requirements.
+
+.wd When ready descend $alt.
+.wds When ready descend via STAR to $alt.
+.wda When ready descend amended $alt.
+.wdn When ready descend non-standard $alt.
+
+;Other
+.app Runway $1 expect $2 approach, information $3.
+.dapp Descend $alt, runway $1 expect $2 approach, information $3.
+.loc Localizer frequency $1 runway $2.
+
+;Route
+.td Track direct to $1.
+.tds Cleared direct $1, climb via SID to $alt
+.rn Resume own navigation, track direct to $1, planned route.
+.cav Cancel STAR, turn $1 heading $2.
+.cdv Cancel SID, turn $1 heading $2.
+.cat Cancel STAR, track direct to $1.
+.cdt Cancel SID, track direct to $1.
+
+;Class C entry
+.ctac Cleared to $arr via $1, planned route, $2 $alt.
+.ctah Cleared to $arr, enter control area heading $1, $2 $alt.
+.ctau Clearance unavailable due $1, remain outside controlled airspace, expect clearance at time $2.
+.ro Remain OCTA.
+.roc Remain outside class $1 airspace.
+
+;Traffic info
+.nit No reported IFR traffic.
+.nrot No reported or observed traffic.
+.not No observed traffic.
+.itfc IFR traffic is $1.
+.tfcn Traffic is $1.
+
+;Class C exit
+.lcta Leave control area $1, $2 Area QNH $3.
+.ist Identification service terminated.
+.cst Control service terminated.
+.fca Frequency changed approved.
+.vlcta Leaving controlled airspace, identification and control service terminates, frequency change approved, squawk 1200.
+
+;Approach clearances
+.civ Cleared Independent visual approach runway $1.
+.cil Cleared ILS runway $1 approach, report established.
+.cr Cleared RNAV-$1 runway $2 approach, report established.
+.rv Report visual.
+.cv Runway $1 cleared visual approach.
+.cvs Runway $1 cleared visual approach, tracking via the STAR.
+.ptac Position $dist($1)NM from $1, turn $2 heading $3, maintain $4 until established, cleared ILS runway $5, report established.
+
+;---------------------------------------------CTR---------------------------------------------
+
+;Sequencing / Separation
+.su Increase speed $1.
+.sd Reduce speed $2.
+.vs Verify speed.
+.vm Verify mach speed.
+.ses For sequencing, $1 speed $2.
+.sev For sequencing, turn $1 heading $2.
+.srs For separation, $1 speed $2.
+.srv For separation, turn $1 heading $2.
+.csr Cancel speed restrictions.
+
+;Flow
+.x Cross $1 at time $2.
+.xx Cross $1 at time $1, 250kts.
+.ax Adjust speed to cross $1 at time $2.
+.axx Adjust speed to cross $1 at time $2, 250kts.
+
+;STAR clearance
+.sa STAR clearance available.
+.starm $star arrival, runway $1, maintain $calt.
+.star $star arrival, runway $1, when ready descend $alt.
+.starmt $1 arrival, $2 transition, runway $3, maintain $calt.
+.start $1 arrival, $2 transition, runway $3, when ready descend $alt.
+
+;Holding
+.hs Hold at $1, $alt.
+.hn Hold at $1, $2 hand pattern, inbound track $3, $4 minute legs, maintain $alt.
+.chv Cancel hold, turn $1 heading $2.
+.chs Cancel hold, track direct $1 to resume the STAR, $2 $alt.
+.chc Cancel hold, onwards clearance, track direct to $1, $2 to $alt.
+.cht Exit the hold at time $1, onwards clearance, track direct to $2, $3 $alt.
+
+;Requirements
+.ra Requirement to reach $alt by $1.
+.rf Requirement to reach $1 by $2.
+
+;Non-radar
+.it Identification service terminated, position reports required.
+.rp Request position report.
+.rr Report reaching.
+.xint Brisbane accepts primary guard this frequency, secondary 122.1, here’s SELCAL check.
+
+;Contact
+.freq .msg $aircraft Hello! I am providing ATC for $1, please contact me on frequency $2
+.ctc Contact $radioname($1) on $freq($1).
+.ctcs Contact $radioname($1) on $freq($1). Expect STAR clearance.
+.xctc Crossing $1 contact $radioname($2) on $freq($2).
+.cpd CPDLC available on $1.
+
+;---------------------------------------------AUTO----------------------------------------------
+; These don't work with TAAATSmod
+.autoproceed Resume own navigation direct $1
+.autoclearedils Cleared ILS runway $1 approach, report established
+.autoclearedvisual Runway $1 leared visual approach
+.autoclimblevel Climb FL$1
+.autoclimbaltitude Climb  $1 ft
+.autodescendlevel Descend FL$1
+.autodescendaltitude Descend  $1 ft, QNH $altim($arr)
+.autospeed Maintain $1 kts
+.automach Maintain mach $1
+.autonospeed Resume profile speed
+.autoturnleft Turn left heading $1
+.autoturnright Turn right heading $1
+.autocontact Contact $1 on $2
+.autosquawk Squawk $1

@@ -1,0 +1,487 @@
+# BetterTextPlugin configuration
+#
+# Templates are used by the composer to suggest messages for text-only pilots.
+# Each template has:
+#   Content - the message text, with $PARAM placeholders for variable fields
+#   Tags    - keywords used for fuzzy search
+#
+# Parameters use $UPPERCASE format. The following are auto-resolved from flight data:
+#   $CALLSIGN  - aircraft callsign
+#   $CFL       - cleared flight level
+#   $SQUAWK    - assigned squawk code
+#   $DEP       - departure airport
+#   $DEST      - destination airport
+#   $RWY       - departure runway
+#   $SID       - assigned SID
+#   $STAR      - assigned STAR
+#   $ROUTE     - flight planned route
+#   $TYPE      - aircraft type
+#
+# All other parameters require manual entry via the composer.
+
+Templates:
+
+  # ---------------------------------------------------------------------------
+  # General
+  # ---------------------------------------------------------------------------
+
+  - Content: "G'day"
+    Tags: [greeting, hello, gday, g]
+
+  - Content: "Verify you have information $ATIS"
+    Tags: [atis, information, verify]
+
+  - Content: "Roger"
+    Tags: [roger, acknowledge, r]
+
+  - Content: "No further ATC, monitor unicom 122.8"
+    Tags: [unicom, no further, frequency change, uni]
+
+  - Content: "Independent visual approach"
+    Tags: [iva, independent, visual, approach]
+
+  # ---------------------------------------------------------------------------
+  # Aerodrome - Departure clearance
+  # ---------------------------------------------------------------------------
+
+  - Content: "Cleared to $ADES via $ROUTE, flight planned route, runway $DRWY, $SID departure, climb via SID to $CFL, squawk $ASSR, departures frequency $FREQ"
+    Tags: [cleared, departure clearance, airways, clearance, clear]
+
+  # ---------------------------------------------------------------------------
+  # Aerodrome - Pushback and start
+  # ---------------------------------------------------------------------------
+
+  - Content: "Push approved"
+    Tags: [push, pushback, approved, p]
+
+  - Content: "Push approved, tail $DIR"
+    Tags: [push, pushback, tail, direction, pf]
+
+  - Content: "Push approved, traffic is $TRAFFIC"
+    Tags: [push, pushback, traffic, pt]
+
+  - Content: "Push approved, tail $DIR, traffic is $TRAFFIC"
+    Tags: [push, pushback, tail, traffic, pft]
+
+  - Content: "Expect push at time $TIME"
+    Tags: [expect, push, pushback, time, delay, pd]
+
+  - Content: "Expect start at time $TIME"
+    Tags: [expect, start, time, delay, sd]
+
+  # ---------------------------------------------------------------------------
+  # Aerodrome - Taxi
+  # ---------------------------------------------------------------------------
+
+  - Content: "Taxi via $ROUTE, runway $DRWY"
+    Tags: [taxi, runway, t]
+
+  - Content: "Taxi via $ROUTE, hold short of $POINT"
+    Tags: [taxi, hold short, tv]
+
+  - Content: "Taxi to holding point $POINT, runway $RWY"
+    Tags: [taxi, holding point, runway, tr]
+
+  - Content: "Give way to $TRAFFIC"
+    Tags: [give way, taxi, traffic, tg]
+
+  - Content: "Cross runway $RWY"
+    Tags: [cross, runway, taxi, tx]
+
+  - Content: "Follow $TRAFFIC"
+    Tags: [follow, taxi, traffic, tf]
+
+  - Content: "Hold position"
+    Tags: [hold, position, stop, taxi, th]
+
+  # ---------------------------------------------------------------------------
+  # Aerodrome - Takeoff
+  # ---------------------------------------------------------------------------
+
+  - Content: "Runway $RWY line up and wait"
+    Tags: [line up, wait, runway, takeoff, lu]
+
+  - Content: "Behind the $TRAFFIC runway $RWY line up and wait behind"
+    Tags: [line up, wait, behind, traffic, runway, takeoff, lb]
+
+  - Content: "Runway $RWY cleared for takeoff"
+    Tags: [cleared, takeoff, runway, cto]
+
+  - Content: "Assigned heading $HDG, runway $RWY cleared for takeoff"
+    Tags: [cleared, takeoff, runway, heading, cth]
+
+  - Content: "Wind $WIND, runway $RWY cleared for takeoff"
+    Tags: [cleared, takeoff, runway, wind, ctow]
+
+  - Content: "Wind $WIND, assigned heading $HDG, runway $RWY cleared for takeoff"
+    Tags: [cleared, takeoff, runway, wind, heading, cthw]
+
+  - Content: "Contact departures"
+    Tags: [contact, departures, frequency, cd]
+
+  # ---------------------------------------------------------------------------
+  # Aerodrome - Landing
+  # ---------------------------------------------------------------------------
+
+  - Content: "Continue approach"
+    Tags: [continue, approach, cap]
+
+  - Content: "Expect late landing clearance"
+    Tags: [expect, late, landing, clearance, elc]
+
+  - Content: "Runway $RWY cleared to land"
+    Tags: [cleared, land, runway, landing, ctl]
+
+  - Content: "Wind $WIND, runway $RWY cleared to land"
+    Tags: [cleared, land, runway, wind, landing, ctlw]
+
+  - Content: "Vacate $EXIT"
+    Tags: [vacate, runway, exit, taxi, v]
+
+  - Content: "Go around"
+    Tags: [go around, missed approach, ga]
+
+  # ---------------------------------------------------------------------------
+  # TMA - Squawk
+  # ---------------------------------------------------------------------------
+
+  - Content: "Squawk $SQUAWK"
+    Tags: [squawk, transponder, code, s]
+
+  - Content: "Squawk ident"
+    Tags: [squawk, ident, identify, id]
+
+  - Content: "Squawk $SQUAWK and ident"
+    Tags: [squawk, ident, identify, code, sqi]
+
+  - Content: "Squawk mode C"
+    Tags: [squawk, mode c, altitude reporting, sc]
+
+  - Content: "Squawk 1200"
+    Tags: [squawk, vfr, 1200, sv]
+
+  - Content: "Squawk 2000"
+    Tags: [squawk, 2000, si]
+
+  - Content: "Identified"
+    Tags: [identified, radar, contact, i]
+
+  - Content: "Not yet identified"
+    Tags: [not identified, radar, negative, ni]
+
+  # ---------------------------------------------------------------------------
+  # TMA - Level
+  # ---------------------------------------------------------------------------
+
+  - Content: "Verify level"
+    Tags: [verify, level, altitude, confirm, vl]
+
+  - Content: "Identified, climb via SID to $CFL"
+    Tags: [identified, climb, sid, level, ics]
+
+  - Content: "Identified, climb via SID to $CFL, cancel level and speed restrictions"
+    Tags: [identified, climb, sid, level, cancel restrictions, icc]
+
+  - Content: "Descend $CFL, QNH $QNH"
+    Tags: [descend, level, qnh, altitude, dq]
+
+  - Content: "Descend via STAR to $CFL, QNH $QNH"
+    Tags: [descend, star, level, qnh, altitude, dqs]
+
+  - Content: "Descend $CFL"
+    Tags: [descend, level, altitude, d]
+
+  - Content: "Descend via STAR to $CFL"
+    Tags: [descend, star, level, altitude, ds]
+
+  - Content: "Climb $CFL"
+    Tags: [climb, level, altitude, c]
+
+  - Content: "Maintain $CFL"
+    Tags: [maintain, level, altitude, m]
+
+  - Content: "Descend non-standard $CFL"
+    Tags: [descend, non-standard, level, altitude, dn]
+
+  - Content: "Climb non-standard $CFL"
+    Tags: [climb, non-standard, level, altitude, cn]
+
+  - Content: "Maintain non-standard $CFL"
+    Tags: [maintain, non-standard, level, altitude, mn]
+
+  - Content: "Descend amended $CFL"
+    Tags: [descend, amended, level, altitude, da]
+
+  - Content: "Climb amended $CFL"
+    Tags: [climb, amended, level, altitude, ca]
+
+  - Content: "Maintain amended $CFL"
+    Tags: [maintain, amended, level, altitude, ma]
+
+  - Content: "Cancel level requirements"
+    Tags: [cancel, level, requirements, restrictions, chr]
+
+  - Content: "When ready descend $CFL"
+    Tags: [when ready, descend, level, altitude, wd]
+
+  - Content: "When ready descend via STAR to $CFL"
+    Tags: [when ready, descend, star, level, altitude, wds]
+
+  - Content: "When ready descend amended $CFL"
+    Tags: [when ready, descend, amended, level, altitude, wda]
+
+  - Content: "When ready descend non-standard $CFL"
+    Tags: [when ready, descend, non-standard, level, altitude, wdn]
+
+  # ---------------------------------------------------------------------------
+  # TMA - Approach
+  # ---------------------------------------------------------------------------
+
+  - Content: "Runway $RWY expect $APPTYPE approach, information $ATIS"
+    Tags: [expect, approach, runway, information, atis, app]
+
+  - Content: "Descend $CFL, runway $RWY expect $APPTYPE approach, information $ATIS"
+    Tags: [descend, expect, approach, runway, information, atis, dapp]
+
+  - Content: "Localizer frequency $FREQ runway $RWY"
+    Tags: [localizer, frequency, ils, runway, loc]
+
+  # ---------------------------------------------------------------------------
+  # TMA - Route
+  # ---------------------------------------------------------------------------
+
+  - Content: "Track direct to $FIX"
+    Tags: [track direct, direct, route, fix, td]
+
+  - Content: "Cleared direct $FIX, climb via SID to $CFL"
+    Tags: [cleared direct, direct, climb, sid, level, tds]
+
+  - Content: "Resume own navigation, track direct to $FIX, planned route"
+    Tags: [resume, own navigation, direct, route, rn]
+
+  - Content: "Cancel STAR, turn $DIR heading $HDG"
+    Tags: [cancel star, star, turn, heading, cav]
+
+  - Content: "Cancel SID, turn $DIR heading $HDG"
+    Tags: [cancel sid, sid, turn, heading, cdv]
+
+  - Content: "Cancel STAR, track direct to $FIX"
+    Tags: [cancel star, star, direct, cat]
+
+  - Content: "Cancel SID, track direct to $FIX"
+    Tags: [cancel sid, sid, direct, cdt]
+
+  # ---------------------------------------------------------------------------
+  # TMA - Class C entry
+  # ---------------------------------------------------------------------------
+
+  - Content: "Cleared to $DEST via $ROUTE, planned route, $DIR $CFL"
+    Tags: [cleared, class c, entry, controlled airspace, ctac]
+
+  - Content: "Cleared to $DEST, enter control area heading $HDG, $DIR $CFL"
+    Tags: [cleared, class c, entry, control area, heading, ctah]
+
+  - Content: "Clearance unavailable due $REASON, remain outside controlled airspace, expect clearance at time $TIME"
+    Tags: [clearance unavailable, class c, remain outside, octa, ctau]
+
+  - Content: "Remain OCTA"
+    Tags: [remain, octa, outside, controlled airspace, ro]
+
+  - Content: "Remain outside class $CLASS airspace"
+    Tags: [remain, outside, class, airspace, roc]
+
+  # ---------------------------------------------------------------------------
+  # TMA - Traffic information
+  # ---------------------------------------------------------------------------
+
+  - Content: "No reported IFR traffic"
+    Tags: [traffic, no traffic, ifr, nit]
+
+  - Content: "No reported or observed traffic"
+    Tags: [traffic, no traffic, nrot]
+
+  - Content: "No observed traffic"
+    Tags: [traffic, no observed, not]
+
+  - Content: "IFR traffic is $TRAFFIC"
+    Tags: [traffic, ifr, traffic info, itfc]
+
+  - Content: "Traffic is $TRAFFIC"
+    Tags: [traffic, traffic info, tfcn]
+
+  # ---------------------------------------------------------------------------
+  # TMA - Class C exit
+  # ---------------------------------------------------------------------------
+
+  - Content: "Leave control area $INSTR, $AREA Area QNH $QNH"
+    Tags: [lcta, leave, control area, class c, exit]
+
+  - Content: "Identification service terminated"
+    Tags: [identification, terminated, service, ist]
+
+  - Content: "Control service terminated"
+    Tags: [control, terminated, service, cst]
+
+  - Content: "Frequency changed approved"
+    Tags: [frequency, changed, approved, fca]
+
+  - Content: "Leaving controlled airspace, identification and control service terminates, frequency change approved, squawk 1200"
+    Tags: [leaving, controlled airspace, service terminated, frequency change, squawk 1200, vlcta]
+
+  # ---------------------------------------------------------------------------
+  # TMA - Approach clearances
+  # ---------------------------------------------------------------------------
+
+  - Content: "Cleared independent visual approach runway $RWY"
+    Tags: [cleared, iva, independent, visual, approach, runway, civ]
+
+  - Content: "Cleared ILS runway $RWY approach, report established"
+    Tags: [cleared, ils, approach, runway, established, cil]
+
+  - Content: "Cleared RNAV-$TYPE runway $RWY approach, report established"
+    Tags: [cleared, rnav, approach, runway, established, cr]
+
+  - Content: "Report visual"
+    Tags: [report, visual, approach, rv]
+
+  - Content: "Runway $RWY cleared visual approach"
+    Tags: [cleared, visual, approach, runway, cv]
+
+  - Content: "Runway $RWY cleared visual approach, tracking via the STAR"
+    Tags: [cleared, visual, approach, runway, star, cvs]
+
+  - Content: "Position $DIST NM from $FIX, turn $DIR heading $HDG, maintain $ALT until established, cleared ILS runway $RWY, report established"
+    Tags: [position, ils, cleared, turn, heading, approach, runway, intercept, ptac]
+
+  # ---------------------------------------------------------------------------
+  # CTR - Sequencing and separation
+  # ---------------------------------------------------------------------------
+
+  - Content: "Increase speed $SPEED"
+    Tags: [speed, increase, sequencing, su]
+
+  - Content: "Reduce speed $SPEED"
+    Tags: [speed, reduce, slow, sequencing, sd]
+
+  - Content: "Verify speed"
+    Tags: [verify, speed, confirm, vs]
+
+  - Content: "Verify mach speed"
+    Tags: [verify, mach, speed, confirm, vm]
+
+  - Content: "For sequencing, $DIR speed $SPEED"
+    Tags: [sequencing, speed, increase, reduce, ses]
+
+  - Content: "For sequencing, turn $DIR heading $HDG"
+    Tags: [sequencing, turn, heading, sev]
+
+  - Content: "For separation, $DIR speed $SPEED"
+    Tags: [separation, speed, increase, reduce, srs]
+
+  - Content: "For separation, turn $DIR heading $HDG"
+    Tags: [separation, turn, heading, srv]
+
+  - Content: "Cancel speed restrictions"
+    Tags: [cancel, speed, restrictions, csr]
+
+  # ---------------------------------------------------------------------------
+  # CTR - Flow control
+  # ---------------------------------------------------------------------------
+
+  - Content: "Cross $FIX at time $TIME"
+    Tags: [cross, fix, time, flow, x]
+
+  - Content: "Cross $FIX at time $TIME, 250kts"
+    Tags: [cross, fix, time, 250, speed, flow, xx]
+
+  - Content: "Adjust speed to cross $FIX at time $TIME"
+    Tags: [adjust, speed, cross, fix, time, flow, ax]
+
+  - Content: "Adjust speed to cross $FIX at time $TIME, 250kts"
+    Tags: [adjust, speed, cross, fix, time, 250, flow, axx]
+
+  # ---------------------------------------------------------------------------
+  # CTR - STAR clearance
+  # ---------------------------------------------------------------------------
+
+  - Content: "STAR clearance available"
+    Tags: [star, clearance, available, sa]
+
+  - Content: "$STAR arrival, runway $RWY, maintain $ALT"
+    Tags: [star, arrival, runway, maintain, clearance, starm]
+
+  - Content: "$STAR arrival, runway $RWY, when ready descend $CFL"
+    Tags: [star, arrival, runway, descend, when ready, clearance, star]
+
+  - Content: "$STAR arrival, $TRANS transition, runway $RWY, maintain $ALT"
+    Tags: [star, arrival, transition, runway, maintain, clearance, starmt]
+
+  - Content: "$STAR arrival, $TRANS transition, runway $RWY, when ready descend $CFL"
+    Tags: [star, arrival, transition, runway, descend, when ready, clearance, start]
+
+  # ---------------------------------------------------------------------------
+  # CTR - Holding
+  # ---------------------------------------------------------------------------
+
+  - Content: "Hold at $FIX, $CFL"
+    Tags: [hold, holding, fix, level, altitude, hs]
+
+  - Content: "Hold at $FIX, $HAND hand pattern, inbound track $TRACK, $LEGS minute legs, maintain $CFL"
+    Tags: [hold, holding, fix, pattern, inbound, legs, maintain, hn]
+
+  - Content: "Cancel hold, turn $DIR heading $HDG"
+    Tags: [cancel hold, holding, turn, heading, chv]
+
+  - Content: "Cancel hold, track direct $FIX to resume the STAR, $DIR $CFL"
+    Tags: [cancel hold, holding, direct, star, resume, level, chs]
+
+  - Content: "Cancel hold, onwards clearance, track direct to $FIX, $DIR to $CFL"
+    Tags: [cancel hold, holding, onwards, clearance, direct, level, chc]
+
+  - Content: "Exit the hold at time $TIME, onwards clearance, track direct to $FIX, $DIR $CFL"
+    Tags: [exit hold, holding, time, onwards, clearance, direct, level, cht]
+
+  # ---------------------------------------------------------------------------
+  # CTR - Requirements
+  # ---------------------------------------------------------------------------
+
+  - Content: "Requirement to reach $CFL by $FIX"
+    Tags: [requirement, reach, level, fix, altitude, ra]
+
+  - Content: "Requirement to reach $FIX by $TIME"
+    Tags: [requirement, reach, fix, time, rf]
+
+  # ---------------------------------------------------------------------------
+  # CTR - Non-radar
+  # ---------------------------------------------------------------------------
+
+  - Content: "Identification service terminated, position reports required"
+    Tags: [identification, terminated, position reports, non-radar, it]
+
+  - Content: "Request position report"
+    Tags: [request, position, report, non-radar, rp]
+
+  - Content: "Report reaching"
+    Tags: [report, reaching, position, rr]
+
+  - Content: "Brisbane accepts primary guard this frequency, secondary 122.1, here's SELCAL check"
+    Tags: [selcal, guard, frequency, brisbane, secondary, xint]
+
+  # ---------------------------------------------------------------------------
+  # CTR - Contact
+  # ---------------------------------------------------------------------------
+
+  - Content: "Hello! I am providing ATC for $AIRSPACE, please contact me on frequency $FREQ"
+    Tags: [hello, contact, frequency, airspace, introduce, freq]
+
+  - Content: "Contact $UNIT on $FREQ"
+    Tags: [contact, frequency, unit, ctc]
+
+  - Content: "Contact $UNIT on $FREQ. Expect STAR clearance"
+    Tags: [contact, frequency, unit, star, clearance, ctcs]
+
+  - Content: "Crossing $FIX contact $UNIT on $FREQ"
+    Tags: [crossing, contact, frequency, fix, unit, xctc]
+
+  - Content: "CPDLC available on $DATALINK"
+    Tags: [cpdlc, datalink, available, cpd]
