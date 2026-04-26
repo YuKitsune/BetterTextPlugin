@@ -30,7 +30,7 @@ public class ParameterResolver : IParameterResolver
             if (fdr.TryResolve(name, out var value))
             {
                 paramList.Add((name, value));
-                sb.Append(value);
+                sb.Append(value ?? string.Empty);
             }
             else
             {

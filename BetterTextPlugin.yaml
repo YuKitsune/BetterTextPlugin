@@ -8,7 +8,7 @@
 # Parameters use $UPPERCASE format. The following are auto-resolved from flight data:
 #   $CALLSIGN  - aircraft callsign
 #   $CFL       - cleared flight level
-#   $SQUAWK    - assigned squawk code
+#   $ASSR    - assigned squawk code
 #   $DEP       - departure airport
 #   $DEST      - destination airport
 #   $RWY       - departure runway
@@ -145,13 +145,13 @@ Templates:
   # TMA - Squawk
   # ---------------------------------------------------------------------------
 
-  - Content: "Squawk $SQUAWK"
+  - Content: "Squawk $ASSR"
     Tags: [squawk, transponder, code, s]
 
   - Content: "Squawk ident"
     Tags: [squawk, ident, identify, id]
 
-  - Content: "Squawk $SQUAWK and ident"
+  - Content: "Squawk $ASSR and ident"
     Tags: [squawk, ident, identify, code, sqi]
 
   - Content: "Squawk mode C"
@@ -237,13 +237,13 @@ Templates:
   # TMA - Approach
   # ---------------------------------------------------------------------------
 
-  - Content: "Runway $RWY expect $APPTYPE approach, information $ATIS"
+  - Content: "Runway $ARWY expect $APPTYPE approach, information $ATIS"
     Tags: [expect, approach, runway, information, atis, app]
 
-  - Content: "Descend $CFL, runway $RWY expect $APPTYPE approach, information $ATIS"
+  - Content: "Descend $CFL, runway $ARWY expect $APPTYPE approach, information $ATIS"
     Tags: [descend, expect, approach, runway, information, atis, dapp]
 
-  - Content: "Localizer frequency $FREQ runway $RWY"
+  - Content: "Localizer frequency $FREQ runway $ARWY"
     Tags: [localizer, frequency, ils, runway, loc]
 
   # ---------------------------------------------------------------------------

@@ -8,9 +8,9 @@ public class FdrSnapshot
 {
     public string Callsign { get; }
 
-    readonly IReadOnlyDictionary<string, string> _params;
+    readonly IReadOnlyDictionary<string, string?> _params;
 
-    public FdrSnapshot(string callsign, IReadOnlyDictionary<string, string> parameters)
+    public FdrSnapshot(string callsign, IReadOnlyDictionary<string, string?> parameters)
     {
         Callsign = callsign;
         _params = parameters;

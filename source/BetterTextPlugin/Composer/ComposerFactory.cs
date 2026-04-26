@@ -32,17 +32,17 @@ public class ComposerFactory(
 
     FdrSnapshot BuildSnapshot(FDP2.FDR fdr)
     {
-        var @params = new Dictionary<string, string>();
+        var @params = new Dictionary<string, string?>();
         // TODO: populate with FDR fields once vatSys API is confirmed
         @params["ACID"] = fdr.Callsign;
         @params["ADEP"] = fdr.DepAirport;
         @params["ADES"] = fdr.DesAirport;
         @params["ROUTE"] = fdr.Route;
         @params["TYPE"] = fdr.AircraftType;
-        @params["DRWY"] = fdr.DepartureRunway.Name;
-        @params["SID"] = fdr.SID.Name;
-        @params["ARWY"] = fdr.ArrivalRunway.Name;
-        @params["STAR"] = fdr.STAR.Name;
+        @params["DRWY"] = fdr.DepartureRunway?.Name;
+        @params["SID"] = fdr.SID?.Name;
+        @params["ARWY"] = fdr.ArrivalRunway?.Name;
+        @params["STAR"] = fdr.STAR?.Name;
         @params["ASSR"] = fdr.AssignedSSRCode.ToString("0000");
         @params["CFLUPPER"] = FormatAltitude(fdr.CFLUpper);
         @params["CFLLOWER"] = FormatAltitude(fdr.CFLLower);
