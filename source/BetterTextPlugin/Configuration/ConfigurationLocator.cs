@@ -1,6 +1,5 @@
 ﻿using System.IO;
 using System.Reflection;
-using vatsys;
 
 namespace BetterTextPlugin.Configuration;
 
@@ -13,7 +12,7 @@ public static class ConfigurationLocator
         var searchDirectories = new List<string>();
 
         // Search the profile first
-        if (TryFindProfileDirectory(out var profileDirectory))
+        if (ProfileDirectoryResolver.TryGetProfileDirectory(out var profileDirectory) && profileDirectory is not null)
         {
             searchDirectories.AddRange([
                 Path.Combine(profileDirectory.FullName, "Plugins", "Configs", "BetterTextPlugin"),
@@ -37,19 +36,5 @@ public static class ConfigurationLocator
         }
 
         throw new Exception($"Unable to locate {configFileName}");
-    }
-
-    // Thanks Max!
-    static bool TryFindProfileDirectory(out DirectoryInfo? directoryInfo)
-    {
-        directoryInfo = null;
-        if (!Profile.Loaded)
-            return false;
-
-        var shortNameObject = typeof(Profile).GetField("shortName", BindingFlags.Static | BindingFlags.NonPublic);
-        var shortName = (string)shortNameObject.GetValue(shortNameObject);
-
-        directoryInfo = new DirectoryInfo(Path.Combine(Helpers.GetFilesFolder(), "Profiles", shortName));
-        return true;
     }
 }

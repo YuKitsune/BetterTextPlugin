@@ -1,4 +1,5 @@
 using System.ComponentModel.Composition;
+using System.Windows.Forms;
 using BetterTextPlugin.Composer;
 using BetterTextPlugin.Configuration;
 using MediatR;
@@ -19,6 +20,13 @@ public class Plugin : ILabelPlugin, IStripPlugin
 
     readonly VoiceCapabilityLabelItemProvider _labelItemProvider;
     readonly VoiceCapabilityStripItemProvider _stripItemProvider;
+    readonly IErrorReporter _errorReporter;
+
+    ToolStripMenuItem? _installationMenuItem;
+    bool _labelsInstalled;
+
+    const string InstallMenuLabel = "Install Better Text label items";
+    const string UninstallMenuLabel = "Uninstall Better Text label items";
 
     string IPlugin.Name => Name;
 
@@ -53,6 +61,123 @@ public class Plugin : ILabelPlugin, IStripPlugin
 
         _labelItemProvider = provider.GetRequiredService<VoiceCapabilityLabelItemProvider>();
         _stripItemProvider = provider.GetRequiredService<VoiceCapabilityStripItemProvider>();
+        _errorReporter = provider.GetRequiredService<IErrorReporter>();
+
+        CheckXmlInstallation();
+        AddToolbarItems();
+    }
+
+    void AddToolbarItems()
+    {
+        var status = XmlInstaller.GetStatus();
+        if (!string.IsNullOrEmpty(status.ErrorMessage))
+            return;
+
+        _labelsInstalled = status.IsInstalled;
+
+        var toolStripItem = new ToolStripMenuItem(_labelsInstalled ? UninstallMenuLabel : InstallMenuLabel);
+        toolStripItem.Click += (_, _) =>
+        {
+            if (_labelsInstalled)
+                RunUninstall();
+            else
+                RunInstall();
+        };
+
+        _installationMenuItem = toolStripItem;
+
+        var menuItem = new CustomToolStripMenuItem(
+            CustomToolStripMenuItemWindowType.Main,
+            CustomToolStripMenuItemCategory.Tools,
+            toolStripItem);
+        MMI.AddCustomMenuItem(menuItem);
+    }
+
+    void CheckXmlInstallation()
+    {
+        try
+        {
+            var status = XmlInstaller.GetStatus();
+            if (!string.IsNullOrEmpty(status.ErrorMessage))
+            {
+                _errorReporter.ReportError(new Exception($"Could not verify the Labels.xml and Strips.xml installation: {status.ErrorMessage}"));
+                return;
+            }
+
+            if (!status.IsInstalled)
+            {
+                _errorReporter.ReportError(new Exception("Better Text label and strip items are not installed. Install them from the Tools menu."));
+            }
+        }
+        catch (Exception ex)
+        {
+            _errorReporter.ReportError(ex, "Failed to verify the Labels.xml and Strips.xml installation");
+        }
+    }
+
+    void RunInstall()
+    {
+        try
+        {
+            var result = XmlInstaller.Install();
+            if (result.Succeeded)
+            {
+                SetInstallationMenuState(installed: true);
+                MessageBox.Show(
+                    "Better Text label & strip items installed successfully.\n\nPlease restart vatSys to apply the changes.",
+                    Name,
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Information);
+            }
+            else
+            {
+                MessageBox.Show(
+                    $"Failed to install Better Text label & strip items.\n\n{result.ErrorMessage}",
+                    Name,
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+            }
+        }
+        catch (Exception ex)
+        {
+            _errorReporter.ReportError(ex, "Failed to install label & strip items");
+        }
+    }
+
+    void RunUninstall()
+    {
+        try
+        {
+            var result = XmlInstaller.Uninstall();
+            if (result.Succeeded)
+            {
+                SetInstallationMenuState(installed: false);
+                MessageBox.Show(
+                    "Better Text label & strip items uninstalled successfully.\n\nPlease restart vatSys to apply the changes.",
+                    Name,
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Information);
+            }
+            else
+            {
+                MessageBox.Show(
+                    $"Failed to uninstall Better Text label & strip items.\n\n{result.ErrorMessage}",
+                    Name,
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+            }
+        }
+        catch (Exception ex)
+        {
+            _errorReporter.ReportError(ex, "Failed to uninstall label & strip items");
+        }
+    }
+
+    void SetInstallationMenuState(bool installed)
+    {
+        _labelsInstalled = installed;
+        if (_installationMenuItem is not null)
+            _installationMenuItem.Text = installed ? UninstallMenuLabel : InstallMenuLabel;
     }
 
     public void OnFDRUpdate(FDP2.FDR updated) { }
